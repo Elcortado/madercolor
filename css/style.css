@@ -1,10 +1,4 @@
-/*------------------------------------------------------------------
-Project:	Nantes - multi purpose one-page template
-Version:	1.0
-Last change:	18/02/2016 [...]
-Designed by:	MOOZ Themes / www.MOOZthemes.com
-Primary use:	One page
--------------------------------------------------------------------*/
+
 
 /* main font for menu. */
 @import url(http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900);
@@ -967,13 +961,14 @@ color: #fff;
 
 /* Back to top button
 ---------------------------------- */
-#back-top {
+  #back-top {
 	position: fixed;
 	z-index: 1000;
 	bottom: 40px;
 	right: 50px;
 }
 #back-top a {
+	border-radius: 100%;
 	width: 60px;
 	height: 60px;
 	display: block;
@@ -982,20 +977,26 @@ color: #fff;
 	text-transform: uppercase;
 	text-decoration: none;
 	color: #FFFFFF;
-	background: #A9A9B1;
-	/* background color transition */
+	background: #36c540;
+	/* background color transition */  
+	 
 	-webkit-transition: 1s;
 	-moz-transition: 1s;
 	transition: 1s;
 }
 #back-top a:hover {
-	background: #fed136;
-}
+	color: #ffffff;
+	background: #097235;
+}  
 /* arrow icon (span tag) */
 #back-top i {
-	margin-top: 15px;
-	font-size: 28px;
+	margin-top: 5px;
+	margin-left: -3px;
+	font-size: 30px;
+
 }
+
+
 
 @media only screen
 and (min-width : 320px)

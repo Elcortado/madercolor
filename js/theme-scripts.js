@@ -110,12 +110,12 @@ $('.owl-slider').owlCarousel({
   });
 
   // scroll body to 0px on click
-  $('#back-top a').on("click", function(){
-  	$('body,html').animate({
+//  $('#back-top a').on("click", function(){
+//  	$('body,html').animate({
   		scrollTop: 0
-  	}, 800);
-  	return false;
-  });
+//  	}, 800);
+ // 	return false;
+ // });
 
 // Closes the Responsive Menu on Menu Item Click
 $('.navbar-collapse ul li a').click(function() {
