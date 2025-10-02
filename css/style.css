@@ -140,20 +140,20 @@ section ul li:before {
 	margin-left: 10px;
 }
 .navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus,.navbar-default .navbar-brand:active,.navbar-default .navbar-brand.active {
-	color: #fec503
+	color: #1ca743
 }
 .navbar-default .navbar-collapse {
 	border-color: rgba(255,255,255,.02)
 }
 .navbar-default .navbar-toggle {
-	background-color: #fed136;
-	border-color: #fed136
+	background-color: #11a928;
+	border-color: #11a928
 }
 .navbar-default .navbar-toggle .icon-bar {
 	background-color: #fff
 }
 .navbar-default .navbar-toggle:hover,.navbar-default .navbar-toggle:focus {
-	background-color: #fed136
+	background-color: #11a928
 }
 .navbar-default .nav li a {
 	font-family: "Open Sans",sans-serif;
@@ -164,18 +164,18 @@ section ul li:before {
 	color: #444448;
 }
 .navbar-default .nav li a:hover,.navbar-default .nav li a:focus {
-	color: #fed136;
+	color: #11a928;
 	outline: 0
 }
 
 .navbar-default .navbar-nav>.active>a {
 	border-radius: 0;
 	color: #fff;
-	background-color: #fed136
+	background-color: #11a928
 }
 .navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus {
 	color: #fff;
-	background-color: #fec503
+	background-color: #11a928
 }
 
 @media (min-width:768px) {
