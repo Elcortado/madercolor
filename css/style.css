@@ -20,7 +20,7 @@ change these colors to change overlays
 	color: #6EB377;
 }
 .mz-module:hover .ot-circle.color4 {
-	color: #FCBE03;
+	color: #2aa152;
 }
 
 /*--------------------
@@ -58,7 +58,7 @@ color: #B1B1B1;
 }
 
 a:hover, a:focus, a:active, a.active {
-	color: #fec503;
+	color: #219e2a;
 }
 a, a:hover, a:focus, a:active, a.active {
 	outline: 0;
@@ -862,7 +862,7 @@ footer p a {
 }
 
 footer p a span {
-	color: #FCBE03;
+	color: #39b14b;
 	font-size: 10px;
 	letter-spacing: 1px;
 	font-weight: 700;
@@ -943,12 +943,12 @@ font-size: 11px;
 	background-image: none;
 	border: 1px solid transparent;
 	border-radius: 0px;
-	background-color: #FCBE03;
+	background-color: #229649;
 }
 
 .btn-xl {
 color: #fff;
-    background-color: #FCBE03;
+    background-color: #23a129;
     /* border-color: #726FB9; */
     font-family: "Open Sans",sans-serif;
     text-transform: uppercase;
