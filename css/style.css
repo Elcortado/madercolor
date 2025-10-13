@@ -435,8 +435,6 @@ header {
 	bottom: 0px;
 	left: 0;
 	right: 0;
-	opacity: 0;
-	color: #fff;
 	-webkit-transition:all .3s;
 	-moz-transition:all .3s;
 	transition:all .3s;
