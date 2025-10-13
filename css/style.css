@@ -399,10 +399,11 @@ header {
 }
 
 .mz-module-about {
-    border: 1px solid #E6E6EA;
+    border: 5px solid #E6E6EA;
     min-height: 280px;
     padding: 20px;
     background-color: #EFEFF1;
+	
 }
 
 .mz-module-about h3 {
@@ -412,6 +413,7 @@ header {
 	color: #424242;
 	/* letter-spacing: 2px; */
 	margin-bottom: 20px;
+	
 }
 
 .dark-bg .mz-module-about h3 {
@@ -423,6 +425,7 @@ header {
 	font-weight: 300;
 	line-height: 22px;
 	color: #848484;
+	
 }
 .mz-module-button {
 	background-color: #B6B6C3;
@@ -454,14 +457,12 @@ header {
 }
 
 .ot-circle {
-	height: 95px;
-	width: 95px;
+	height: 115px;
+	width: 115px;
 	text-align: center;
 	line-height: 98px;
-	color: #FFFFFF;
 	margin: 0 2px 4px;
 	font-size: 75px;
-
 	-webkit-transition:all .3s;
 	-moz-transition:all .3s;
 	transition:all .3s;
