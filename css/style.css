@@ -1,4 +1,73 @@
-
+/* Cool infinite background scrolling animation.
+ * Twitter: @kootoopas
+ */
+/* Exo thin font from Google. */
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+/* Background data (Original source: https://subtlepatterns.com/grid-me/) */
+/* Animations */
+@-webkit-keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+@-moz-keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+@-o-keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+@-webkit-keyframes bg-scrolling {
+  0% {
+    background-position: 50px 50px;
+  }
+}
+@-moz-keyframes bg-scrolling {
+  0% {
+    background-position: 50px 50px;
+  }
+}
+@-o-keyframes bg-scrolling {
+  0% {
+    background-position: 50px 50px;
+  }
+}
+@keyframes bg-scrolling {
+  0% {
+    background-position: 50px 50px;
+  }
+}
+/* Main styles */
+body {
+	margin: 0px;
+	font-family: "Open Sans", Sans-serif;
+  margin-top: 13.5rem;
+  color: #f7efeffc;
+  font: 400 16px/1.5 exo, ubuntu, "segoe ui", helvetica, arial, sans-serif;
+  text-align: center;
+  /* img size is 50x50 */
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
+  -webkit-animation: bg-scrolling-reverse .92s infinite;
+  /* Safari 4+ */
+  -moz-animation: bg-scrolling-reverse .92s infinite;
+  /* Fx 5+ */
+  -o-animation: bg-scrolling-reverse .92s infinite;
+  /* Opera 12+ */
+  animation: bg-scrolling-reverse .92s infinite;
+  /* IE 10+ */
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
 
 /* main font for menu. */
 @import url(http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900);
@@ -9,6 +78,8 @@
 Color customizations
 change these colors to change overlays
 --------------------*/
+
+
 
 .mz-module:hover .ot-circle.color1 {
 	color: #C54A4A;
@@ -27,10 +98,6 @@ change these colors to change overlays
 1. General
 --------------------*/
 
-body {
-	margin: 0px;
-	font-family: "Open Sans", Sans-serif;
-}
 
 h1,
 h2,
@@ -641,7 +708,7 @@ figure.effect-bubba:hover figcaption::after {
 
 figure.effect-bubba:hover h2,
 figure.effect-bubba:hover p {
-	opacity: 1;
+	opacity: 10;
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 }
@@ -651,7 +718,7 @@ figure.effect-bubba:hover p {
 --------------------*/
 
 .light-bg {
-	background-color: #f8f8f8;
+	background-color: none;
 }
 
 .dark-bg {
