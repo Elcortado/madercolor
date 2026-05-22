@@ -2451,6 +2451,74 @@ font-size: 11px;
     background: #ffffff;
 }
 
+.detail-consult-wrap {
+    padding: 18px 20px 24px;
+    text-align: center;
+    background: #ffffff;
+}
+
+.detail-consult-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 190px;
+    padding: 13px 28px;
+    border-radius: 999px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #25d366 0%, #0baa20 100%);
+    box-shadow: 0 12px 28px rgba(11, 170, 32, .35);
+    overflow: hidden;
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.detail-consult-btn::before {
+    content: "";
+    position: absolute;
+    inset: -12px;
+    border-radius: inherit;
+    border: 1px solid rgba(37, 211, 102, .45);
+    animation: whatsapp-ring 2.2s ease-out infinite;
+}
+
+.detail-consult-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+    transform: skewX(-22deg);
+    transition: left .6s ease;
+}
+
+.detail-consult-btn:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #2be06f 0%, #07951a 100%);
+    box-shadow: 0 14px 34px rgba(11, 170, 32, .48);
+    transform: translateY(-3px) scale(1.03);
+}
+
+.detail-consult-btn:hover::after {
+    left: 125%;
+}
+
+.detail-consult-btn i,
+.detail-consult-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.detail-consult-btn i {
+    font-size: 22px;
+}
+
 
 
 */

@@ -143,6 +143,7 @@
             var detailImage = escapeHtml(product.detailImage || product.image || '');
             var alt = escapeHtml(product.alt || product.title || 'Producto');
             var title = escapeHtml(product.title || '');
+            var whatsappUrl = escapeHtml(product.whatsappLink || config.whatsappLink || $('.back-to-top').attr('href') || 'https://walink.co/fe04f5');
 
             return '' +
                 '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-labelledby="' + modalId + '-label">' +
@@ -156,6 +157,12 @@
                             '</div>' +
                             '<div class="modal-body">' +
                                 '<img src="' + detailImage + '" alt="' + alt + '" class="img-responsive" />' +
+                                '<div class="detail-consult-wrap">' +
+                                    '<a href="' + whatsappUrl + '" class="detail-consult-btn" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">' +
+                                        '<i class="fab fa-whatsapp"></i>' +
+                                        '<span>Consultar</span>' +
+                                    '</a>' +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>' +
