@@ -2589,11 +2589,14 @@ img{max-width:100%;height:auto;display:block}
 .container{max-width:1200px;margin:0 auto;padding:0 15px}
 
 /* Carousel: prefer aspect-ratio when possible and avoid fixed vh on small screens */
-.carousel{position:relative;width:100%;text-align:center;overflow:hidden;min-height:300px}
-.carousel{aspect-ratio:16/7}
+.carousel{position:relative;width:100%;text-align:center;overflow:hidden;height:clamp(360px,56.25vw,720px);min-height:360px;max-height:calc(100vh - 96px)}
 .carousel .carousel-inner,.carousel .carousel-item{position:relative;width:100%;height:100%}
-.carousel .carousel-item img{width:100%;height:100%;object-fit:cover}
+.carousel .carousel-item img{width:100%;height:100%;object-fit:cover;object-position:center center}
+.carousel .carousel-item:nth-child(2) img{object-position:68% center}
+.carousel .carousel-item:nth-child(3) img{object-position:center center}
+.carousel .carousel-item:nth-child(4) img{object-position:center center}
 .carousel .carousel-item::after{position:absolute;content:"";width:100%;height:100%;top:0;left:0;background:rgba(0,0,0,.3);z-index:1}
+.carousel .carousel-caption{top:0;bottom:0;height:100%;min-height:0;padding:clamp(24px,5vw,64px) 15%;justify-content:center}
 
 
 
@@ -2920,7 +2923,11 @@ img{max-width:100%;height:auto;display:block}
 
 /* Mobile-specific font-size and stacking improvements */
 @media (max-width:575.98px){
-  .carousel{aspect-ratio:auto;min-height:280px}
+  .carousel{height:clamp(340px,92vw,430px);min-height:340px;max-height:none}
+  .carousel .carousel-item:first-child img{object-position:55% center}
+  .carousel .carousel-item:nth-child(2) img{object-position:72% center}
+  .carousel .carousel-item:nth-child(3) img{object-position:47% center}
+  .carousel .carousel-item:nth-child(4) img{object-position:50% center}
   .carousel .carousel-caption h1{font-size:clamp(18px,6vw,30px);font-weight:500}
   .carousel .carousel-caption p{font-size:clamp(12px,3.5vw,16px)}
 }
