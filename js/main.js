@@ -70,6 +70,121 @@
         })
     });
 
+    // Dynamic product cards for category pages
+    $(document).ready(function () {
+        var config = window.MADERCOLOR_DYNAMIC_PRODUCTS;
+
+        if (!config || !Array.isArray(config.products) || !config.products.length) {
+            return;
+        }
+
+        function escapeHtml(value) {
+            return String(value || '').replace(/[&<>"']/g, function (char) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                }[char];
+            });
+        }
+
+        function ensureServiceSection() {
+            var $service = $('.service').first();
+
+            if ($service.length) {
+                return $service;
+            }
+
+            var title = escapeHtml(config.title || '');
+            var intro = escapeHtml(config.intro || '');
+            var header = title || intro
+                ? '<div class="section-header text-center">' +
+                    (title ? '<h2>' + title + '</h2>' : '<h2></h2>') +
+                    (intro ? '<p>' + intro + '</p>' : '') +
+                  '</div>'
+                : '';
+
+            $service = $(
+                '<div class="service dynamic-products">' +
+                    '<div class="container">' +
+                        header +
+                        '<div class="row"></div>' +
+                    '</div>' +
+                '</div>'
+            );
+
+            $('.page-header').first().after($service);
+            return $service;
+        }
+
+        function productCard(product, modalId, delay) {
+            var image = escapeHtml(product.image || product.detailImage || '');
+            var alt = escapeHtml(product.alt || product.title || 'Producto');
+            var label = escapeHtml(product.buttonLabel || product.title || 'Ver Detalles');
+
+            return '' +
+                '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="' + delay + 's">' +
+                    '<div class="service-item">' +
+                        '<div class="service-img">' +
+                            '<img src="' + image + '" alt="' + alt + '">' +
+                            '<div class="service-overlay"></div>' +
+                        '</div>' +
+                        '<div class="service-text">' +
+                            '<h3>' + label + ' <i class="fa fa-chevron-right"></i></h3>' +
+                            '<a href="#" class="btn" data-toggle="modal" data-target="#' + modalId + '" aria-label="' + label + '">+</a>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        function productModal(product, modalId) {
+            var detailImage = escapeHtml(product.detailImage || product.image || '');
+            var alt = escapeHtml(product.alt || product.title || 'Producto');
+            var title = escapeHtml(product.title || '');
+
+            return '' +
+                '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-labelledby="' + modalId + '-label">' +
+                    '<div class="modal-dialog modal-lg" role="document">' +
+                        '<div class="modal-content">' +
+                            '<div class="modal-header">' +
+                                '<h4 class="modal-title" id="' + modalId + '-label">' + title + '</h4>' +
+                                '<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">' +
+                                    '<span aria-hidden="true">&times;</span>' +
+                                '</button>' +
+                            '</div>' +
+                            '<div class="modal-body">' +
+                                '<img src="' + detailImage + '" alt="' + alt + '" class="img-responsive" />' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        var $service = ensureServiceSection();
+        var $row = $service.find('.row').first();
+        var existingCount = $service.find('.service-item').length;
+
+        if (config.replaceExisting) {
+            $row.empty();
+            $('.modal[id^="Modal-"]').remove();
+            existingCount = 0;
+        }
+
+        config.products.forEach(function (product, index) {
+            var modalId = product.modalId || 'Modal-dynamic-' + (config.page || 'product') + '-' + (index + 1);
+            var delay = ((existingCount + index) % 6 + 1) / 10;
+
+            $row.append(productCard(product, modalId, delay.toFixed(1)));
+            $('.wrapper').append(productModal(product, modalId));
+        });
+
+        if (typeof WOW === 'function') {
+            new WOW().init();
+        }
+    });
+
 
     // Testimonial Slider
     $('.testimonial-slider').slick({
@@ -90,7 +205,7 @@
         slidesToShow: 3,
         asNavFor: '.testimonial-slider'
     });
-    $('.testimonial .slider-nav').css({"position": "relative", "height": "160px"});
+    $('.testimonial .slider-nav').css({"position": "relative"});
     
     
     // Blogs carousel
