@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Agregar aquí la URL pública del sitemap cuando el dominio definitivo esté configurado.

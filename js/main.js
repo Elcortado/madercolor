@@ -79,7 +79,7 @@
         }
 
         function escapeHtml(value) {
-            return String(value || '').replace(/[&<>"']/g, function (char) {
+            return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
                 return {
                     '&': '&amp;',
                     '<': '&lt;',
@@ -88,6 +88,49 @@
                     "'": '&#39;'
                 }[char];
             });
+        }
+
+        // Cada producto puede tener una galería opcional:
+        // gallery: ['img/detalles/producto-1.jpeg', 'img/detalles/producto-2.jpeg']
+        // También se aceptan objetos { src: '...', alt: '...' }.
+        function getGallery(product) {
+            var mainImage = product.detailImage || product.image || '';
+            var configuredImages = product.gallery || product.images || product.detailImages || [];
+            var gallery = [];
+            var seen = {};
+
+            if (!Array.isArray(configuredImages)) {
+                configuredImages = [configuredImages];
+            }
+
+            function addImage(image, imageAlt) {
+                var src = '';
+
+                if (typeof image === 'string') {
+                    src = image;
+                } else if (image && typeof image === 'object') {
+                    src = image.src || image.image || image.url || '';
+                    imageAlt = image.alt || imageAlt;
+                }
+
+                if (!src || seen[src]) {
+                    return;
+                }
+
+                seen[src] = true;
+                gallery.push({
+                    src: src,
+                    alt: imageAlt || product.alt || product.title || 'Producto'
+                });
+            }
+
+            // La imagen principal siempre aparece primero.
+            addImage(mainImage, product.alt || product.title || 'Producto');
+            configuredImages.forEach(function (image) {
+                addImage(image, product.alt || product.title || 'Producto');
+            });
+
+            return gallery;
         }
 
         function ensureServiceSection() {
@@ -123,27 +166,42 @@
             var image = escapeHtml(product.image || product.detailImage || '');
             var alt = escapeHtml(product.alt || product.title || 'Producto');
             var label = escapeHtml(product.buttonLabel || product.title || 'Ver Detalles');
+            var modalTarget = escapeHtml(modalId);
 
             return '' +
                 '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="' + delay + 's">' +
                     '<div class="service-item">' +
                         '<div class="service-img">' +
-                            '<img src="' + image + '" alt="' + alt + '">' +
-                            '<div class="service-overlay"></div>' +
+                            '<a href="#' + modalTarget + '" class="product-image-trigger" data-toggle="modal" data-target="#' + modalTarget + '" aria-label="Ver imágenes de ' + label + '">' +
+                                '<img src="' + image + '" alt="' + alt + '">' +
+                                '<div class="service-overlay"><span><i class="fa fa-images"></i> Ver imágenes</span></div>' +
+                            '</a>' +
                         '</div>' +
                         '<div class="service-text">' +
                             '<h3>' + label + ' <i class="fa fa-chevron-right"></i></h3>' +
-                            '<a href="#" class="btn" data-toggle="modal" data-target="#' + modalId + '" aria-label="' + label + '">+</a>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
         }
 
         function productModal(product, modalId) {
-            var detailImage = escapeHtml(product.detailImage || product.image || '');
+            var gallery = getGallery(product);
+            var firstImage = gallery[0] || { src: product.detailImage || product.image || '', alt: product.alt || product.title || 'Producto' };
+            var detailImage = escapeHtml(firstImage.src);
             var alt = escapeHtml(product.alt || product.title || 'Producto');
             var title = escapeHtml(product.title || '');
             var whatsappUrl = escapeHtml(product.whatsappLink || config.whatsappLink || $('.back-to-top').attr('href') || 'https://walink.co/fe04f5');
+            var thumbnails = gallery.length > 1
+                ? '<div class="product-gallery-thumbs" role="list" aria-label="Vistas de ' + title + '">' +
+                    gallery.map(function (image, index) {
+                        var imageSrc = escapeHtml(image.src);
+                        var imageAlt = escapeHtml(image.alt);
+                        return '<button type="button" class="product-gallery-thumb' + (index === 0 ? ' is-active' : '') + '" data-gallery-image="' + imageSrc + '" data-gallery-alt="' + imageAlt + '" role="listitem" aria-label="Ver vista ' + (index + 1) + ' de ' + title + '" aria-selected="' + (index === 0 ? 'true' : 'false') + '">' +
+                            '<img src="' + imageSrc + '" alt="" loading="lazy">' +
+                        '</button>';
+                    }).join('') +
+                '</div>'
+                : '';
 
             return '' +
                 '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-labelledby="' + modalId + '-label">' +
@@ -156,7 +214,10 @@
                                 '</button>' +
                             '</div>' +
                             '<div class="modal-body">' +
-                                '<img src="' + detailImage + '" alt="' + alt + '" class="img-responsive" />' +
+                                '<div class="product-gallery" data-gallery>' +
+                                    '<img src="' + detailImage + '" alt="' + alt + '" class="img-responsive product-gallery-main" />' +
+                                    thumbnails +
+                                '</div>' +
                                 '<div class="detail-consult-wrap">' +
                                     '<a href="' + whatsappUrl + '" class="detail-consult-btn" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">' +
                                         '<i class="fab fa-whatsapp"></i>' +
@@ -185,6 +246,22 @@
 
             $row.append(productCard(product, modalId, delay.toFixed(1)));
             $('.wrapper').append(productModal(product, modalId));
+        });
+
+        // Cambia la imagen principal sin cerrar el detalle del producto.
+        $(document).on('click', '.product-gallery-thumb', function () {
+            var $thumb = $(this);
+            var $gallery = $thumb.closest('[data-gallery]');
+            var imageSrc = $thumb.attr('data-gallery-image');
+            var imageAlt = $thumb.attr('data-gallery-alt') || 'Producto';
+
+            $gallery.find('.product-gallery-main')
+                .attr('src', imageSrc)
+                .attr('alt', imageAlt);
+            $gallery.find('.product-gallery-thumb')
+                .removeClass('is-active')
+                .attr('aria-selected', 'false');
+            $thumb.addClass('is-active').attr('aria-selected', 'true');
         });
 
         if (typeof WOW === 'function') {
