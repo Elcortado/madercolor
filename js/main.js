@@ -178,7 +178,7 @@
                             '</a>' +
                         '</div>' +
                         '<div class="service-text">' +
-                            '<h3>' + label + ' <i class="fa fa-chevron-right"></i></h3>' +
+                            '<h3>' + label + ' </h3>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
