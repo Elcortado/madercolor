@@ -2555,6 +2555,16 @@ font-size: 11px;
     text-decoration: none;
 }
 
+.service .product-image-trigger:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+
+.service .product-image-trigger:focus-visible {
+    outline: 2px solid #fdbe33;
+    outline-offset: -2px;
+}
+
 .service .product-image-trigger .service-overlay {
     color: #ffffff;
     font-size: 15px;

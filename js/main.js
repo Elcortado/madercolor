@@ -133,6 +133,15 @@
             return gallery;
         }
 
+        function getWhatsappUrl(product) {
+            // Enlace directo para que WhatsApp respete siempre el mensaje personalizado.
+            var baseUrl = product.whatsappLink || config.whatsappLink || 'https://wa.me/5493625181576';
+            var message = 'Hola, quiero consultar por el producto: ' + (product.title || 'Producto') + '. ¿Podrían brindarme más información?';
+            var separator = baseUrl.indexOf('?') === -1 ? '?' : '&';
+
+            return baseUrl + separator + 'text=' + encodeURIComponent(message);
+        }
+
         function ensureServiceSection() {
             var $service = $('.service').first();
 
@@ -190,7 +199,7 @@
             var detailImage = escapeHtml(firstImage.src);
             var alt = escapeHtml(product.alt || product.title || 'Producto');
             var title = escapeHtml(product.title || '');
-            var whatsappUrl = escapeHtml(product.whatsappLink || config.whatsappLink || $('.back-to-top').attr('href') || 'https://walink.co/fe04f5');
+            var whatsappUrl = escapeHtml(getWhatsappUrl(product));
             var thumbnails = gallery.length > 1
                 ? '<div class="product-gallery-thumbs" role="list" aria-label="Vistas de ' + title + '">' +
                     gallery.map(function (image, index) {
@@ -219,7 +228,7 @@
                                     thumbnails +
                                 '</div>' +
                                 '<div class="detail-consult-wrap">' +
-                                    '<a href="' + whatsappUrl + '" class="detail-consult-btn" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">' +
+                                    '<a href="' + whatsappUrl + '" class="detail-consult-btn" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp sobre ' + title + '">' +
                                         '<i class="fab fa-whatsapp"></i>' +
                                         '<span>Consultar</span>' +
                                     '</a>' +
@@ -262,6 +271,22 @@
                 .removeClass('is-active')
                 .attr('aria-selected', 'false');
             $thumb.addClass('is-active').attr('aria-selected', 'true');
+        });
+
+        // Evita que la card quede visualmente enfocada después de abrir el detalle.
+        $(document).on('click', '.product-image-trigger, .detail-consult-btn', function () {
+            var trigger = this;
+            window.setTimeout(function () {
+                if (document.activeElement === trigger) {
+                    trigger.blur();
+                }
+            }, 0);
+        });
+
+        $(document).on('hidden.bs.modal', '.modal', function () {
+            var target = '#' + this.id;
+            $(this).find('.product-gallery-thumb, .close').trigger('blur');
+            $('[data-target="' + target + '"]').trigger('blur');
         });
 
         if (typeof WOW === 'function') {
